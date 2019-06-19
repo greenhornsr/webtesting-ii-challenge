@@ -1,26 +1,50 @@
 import React from 'react';
-import logo from './logo.svg';
+import faker from 'faker';
+
+import Dashboard from './components/dashboard/Dashboard';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class App extends React.Component {
+  state = {
+    allatbats: [],
+    batterperf: 
+      {
+        atbat: 0,
+        firstname: '',
+        lastname: '',
+        strikes: 0,
+        balls: 0,
+        fouls: 0,
+        hit: false,
+      },
+  }
+  render(){
+    return (
+      <div className="App">
+        <Dashboard batter={this.state} newbatter={this.newbatter} />
+        {/* createName={this.createName} */}
+      </div>
+    );
+  }
+  componentDidMount(){
+    this.createName()
+  };
+
+  createName = () => {
+    this.setState({
+      firstname: faker.name.firstname,
+      lastname: faker.name.lastname,
+    })
+  };
+
+  newbatter = (props) => {
+    this.setState({
+      allatbats: [...this.state.allatbats, this.props]
+    })
+  };
 }
 
 export default App;
